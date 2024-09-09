@@ -1,70 +1,152 @@
-import { Image, StyleSheet, Platform } from 'react-native';
+import { Image, StyleSheet, Platform, Button } from "react-native"
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+import { HelloWave } from "@/components/HelloWave"
+import ParallaxScrollView from "@/components/ParallaxScrollView"
+import { ThemedText } from "@/components/ThemedText"
+import { ThemedView } from "@/components/ThemedView"
+import { SetStateAction, useState } from "react"
 
 export default function HomeScreen() {
+  const [currentRewards, setCurrentRewards] = useState(0)
+  const [progress, setProgress] = useState([
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+  ])
+
+  const updateRewardsProgress = async () => {
+    const myProgress: SetStateAction<boolean[]> = []
+    
+    progress.forEach((v) => {
+      myProgress.push(v)
+    })
+
+    setProgress(myProgress)
+  }
+
+  const addReward = async () => {
+    let i = 0
+
+    while (true) {
+      if ((!progress[i])) {
+        progress[i] = true
+        break
+      }
+      i++
+    }
+    
+    if (progress[progress.length-1]) {
+      setCurrentRewards(currentRewards + 1)
+      progress.forEach((v, i) => progress[i] = !v)
+    }
+
+    await updateRewardsProgress()
+  }
+
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
+    <ThemedView style={styles.feed}>
+      <ThemedView style={styles.card}>
+        <ThemedView style={styles.cardRewards}>
+          <ThemedText type="title">{currentRewards}</ThemedText>
+          <ThemedText type="subtitle">Current</ThemedText>
+          <ThemedText type="subtitle">Rewards</ThemedText>
+        </ThemedView>
+        <ThemedView style={styles.cardStack}>
+          <ThemedView style={styles.cardInfo}>
+            <ThemedView style={styles.cardCol}>
+              <ThemedText type="subtitle">YOUR REWARD</ThemedText>
+              <ThemedText>
+                Only {progress.filter((value) => !value).length} more washes
+                away from a free Jersey Shine Wash or Discounted upgrade!
+              </ThemedText>
+            </ThemedView>
+          </ThemedView>
+          <ThemedView style={styles.cardProgress}>
+            {progress.map((value, index) => (
+              <Image
+                key={index}
+                source={
+                  value
+                    ? require("@/assets/images/check.png")
+                    : require("@/assets/images/cancel.png")
+                }
+                style={styles.progressImage}
+              />
+            ))}
+          </ThemedView>
+        </ThemedView>
       </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({ ios: 'cmd + d', android: 'cmd + m' })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
-  );
+      <Button
+        onPress={addReward}
+        title="Learn More"
+        color="#841584"
+        accessibilityLabel="Learn more about this purple button"
+      />
+    </ThemedView>
+  )
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
+  logo: {
+    height: 100,
+    width: 100,
     bottom: 0,
     left: 0,
-    position: 'absolute',
   },
-});
+  feed: {
+    flex: 3,
+    alignItems: "center",
+    gap: 10,
+    marginTop: 50,
+  },
+  card: {
+    flexDirection: "row",
+    height: 200,
+    borderStyle: "solid",
+    borderWidth: 1,
+    borderBottomWidth: 201,
+    borderColor: "#ffffff",
+    backgroundColor: "#128bee",
+  },
+  cardRewards: {
+    width: "25%",
+    height: 200,
+    gap: 3,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#128bee",
+  },
+  cardStack: {
+    width: "75%",
+    height: 200,
+  },
+  cardInfo: {
+    flexDirection: "row",
+    height: 150,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#0e64ab",
+  },
+  cardProgress: {
+    flexDirection: "row",
+    height: 50,
+    gap: 25,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#000000",
+  },
+  progressImage: {
+    height: 25,
+    width: 25,
+    bottom: 0,
+    left: 0,
+  },
+  cardCol: {
+    width: "75%",
+    backgroundColor: "#0e64ab",
+    gap: 5,
+  },
+})
