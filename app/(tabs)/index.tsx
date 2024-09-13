@@ -1,10 +1,10 @@
+// "use client"
+
 import { Image, StyleSheet, Platform, Button } from "react-native"
 
-import { HelloWave } from "@/components/HelloWave"
-import ParallaxScrollView from "@/components/ParallaxScrollView"
 import { ThemedText } from "@/components/ThemedText"
 import { ThemedView } from "@/components/ThemedView"
-import { SetStateAction, useState } from "react"
+import { SetStateAction, useEffect, useState } from "react"
 
 export default function HomeScreen() {
   const [currentRewards, setCurrentRewards] = useState(0)
@@ -19,7 +19,7 @@ export default function HomeScreen() {
 
   const updateRewardsProgress = async () => {
     const myProgress: SetStateAction<boolean[]> = []
-    
+
     progress.forEach((v) => {
       myProgress.push(v)
     })
@@ -31,20 +31,24 @@ export default function HomeScreen() {
     let i = 0
 
     while (true) {
-      if ((!progress[i])) {
+      if (!progress[i]) {
         progress[i] = true
         break
       }
       i++
     }
-    
-    if (progress[progress.length-1]) {
+
+    if (progress[progress.length - 1]) {
       setCurrentRewards(currentRewards + 1)
-      progress.forEach((v, i) => progress[i] = !v)
+      progress.forEach((v, i) => (progress[i] = !v))
     }
 
     await updateRewardsProgress()
   }
+
+  useEffect(() => {
+    updateRewardsProgress()
+  }, [])
 
   return (
     <ThemedView style={styles.feed}>
@@ -56,11 +60,16 @@ export default function HomeScreen() {
         </ThemedView>
         <ThemedView style={styles.cardStack}>
           <ThemedView style={styles.cardInfo}>
+            <Image
+              source={require("@/assets/images/carwashgold.png")}
+              style={styles.logo}
+            />
             <ThemedView style={styles.cardCol}>
               <ThemedText type="subtitle">YOUR REWARD</ThemedText>
               <ThemedText>
                 Only {progress.filter((value) => !value).length} more washes
-                away from a free Jersey Shine Wash or Discounted upgrade!
+                away from a free Jersey Shine Wash or Discounted Express
+                Service!
               </ThemedText>
             </ThemedView>
           </ThemedView>
@@ -79,20 +88,14 @@ export default function HomeScreen() {
           </ThemedView>
         </ThemedView>
       </ThemedView>
-      <Button
-        onPress={addReward}
-        title="Learn More"
-        color="#841584"
-        accessibilityLabel="Learn more about this purple button"
-      />
     </ThemedView>
   )
 }
 
 const styles = StyleSheet.create({
   logo: {
-    height: 100,
-    width: 100,
+    height: 75,
+    width: 75,
     bottom: 0,
     left: 0,
   },
@@ -105,16 +108,11 @@ const styles = StyleSheet.create({
   card: {
     flexDirection: "row",
     height: 200,
-    borderStyle: "solid",
-    borderWidth: 1,
-    borderBottomWidth: 201,
-    borderColor: "#ffffff",
-    backgroundColor: "#128bee",
   },
   cardRewards: {
     width: "25%",
     height: 200,
-    gap: 3,
+    gap: 10,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#128bee",
@@ -129,6 +127,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#0e64ab",
+    borderStyle: "dashed",
+    borderBottomColor: "#f4cb56",
+    borderBottomWidth: 1,
+    gap: 10,
   },
   cardProgress: {
     flexDirection: "row",
@@ -137,6 +139,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "#000000",
+    borderStyle: "solid",
+    borderBottomColor: "#ffffff",
+    borderBottomWidth: 1,
   },
   progressImage: {
     height: 25,

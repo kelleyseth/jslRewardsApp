@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "rewards",
-    "slug": "rewards",
+    "name": "Jersey Shine Rewards",
+    "slug": "Jersey Shine Rewards",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -13,13 +13,21 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": false,
+      "infoPlist": {
+        "NSCameraUsageDescription": "$(Jersey Shine Rewards) needs access to your camera."
+      },
+      "bundleIdentifier": "com.jerseyshine.jerseyshinerewards"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "permissions": [
+        "android.permission.CAMERA"
+      ],
+      "package": "com.jerseyshine.jerseyshinerewards"
     },
     "web": {
       "bundler": "metro",
@@ -27,10 +35,25 @@
       "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
+      [
+        "react-native-vision-camera",
+        {
+          "cameraPermissionText": "$(Jersey Shine Rewards) needs access to your camera.",
+          "enableCodeScanner": true
+        }
+      ],
       "expo-router"
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "d4fa9ebb-3b07-4cd8-aa50-c6079880cd22"
+      }
     }
   }
 }
