@@ -17,10 +17,10 @@ export default function TabLayout() {
         name="index"
         options={{
           title: "Home",
-          tabBarIcon: ({ color, focused }) => (
+          tabBarIcon: ({ focused }) => (
             <TabBarIcon
               name={focused ? "home" : "home-outline"}
-              color={color}
+              color={focused ? '#128bee' : '#f4cb56'}
             />
           ),
         }}
@@ -29,22 +29,11 @@ export default function TabLayout() {
         name="rewards"
         options={{
           title: "Rewards",
-          tabBarIcon: ({ color, focused }) => (
+          tabBarIcon: ({ focused }) => (
             <TabBarIcon
               name={focused ? "qr-code" : "qr-code-outline"}
-              color={color}
-            />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="explore"
-        options={{
-          title: "Explore",
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon
-              name={focused ? "car-sport" : "car-sport-outline"}
-              color={color}
+              color={focused ? '#128bee' : '#f4cb56'}
+
             />
           ),
         }}

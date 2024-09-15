@@ -42,7 +42,7 @@ export function TopNavView({
           style={{ aspectRatio: 16 / 9, width: 75 }}
         />
       )}
-      <TabBarIcon name={"home"} />
+      <TabBarIcon name={"location-outline"} color={'#128bee'} />
     </View>
   )
 }

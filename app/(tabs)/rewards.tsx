@@ -1,7 +1,7 @@
-'use client'
+"use client"
 
 import { StyleSheet, Image, Button } from "react-native"
-import { useEffect, useState } from "react"
+import { SetStateAction, useEffect, useState } from "react"
 // import {
 //   Camera,
 //   useCameraDevice,
@@ -10,9 +10,56 @@ import { useEffect, useState } from "react"
 // } from "react-native-vision-camera"
 import { ThemedText } from "@/components/ThemedText"
 import { ThemedView } from "@/components/ThemedView"
+import { db } from "../../firebase"
+import {
+  deleteDoc,
+  query,
+  collection,
+  doc,
+  getDocs,
+  getDoc,
+  setDoc,
+  updateDoc,
+} from "firebase/firestore"
+import { useUser } from "@clerk/clerk-expo"
 
 export default function HomeScreen() {
   // const { hasPermission, requestPermission } = useCameraPermission()
+
+  const { user } = useUser()
+
+  const addRewards = async () => {
+    if (!user) return
+    const docRef = doc(collection(db, "users"), user.id)
+    const docSnap = await getDoc(docRef)
+
+    if (docSnap.exists()) {
+      const userProgress = docSnap.data().progress
+      const userRewards = docSnap.data().rewards
+
+      let i = 0
+
+      while (true) {
+        if (!userProgress[i]) {
+          userProgress[i] = true
+          break
+        }
+        i++
+      }
+
+      if (userProgress[userProgress.length - 1]) {
+        await setDoc(docRef, {
+          progress: userProgress.map(() => false),
+          rewards: userRewards + 1,
+        })
+
+      } else {
+        await updateDoc(docRef, {
+          progress: userProgress
+        })
+      }
+    }
+  }
 
   const [openCamera, setCameraState] = useState(false)
 
@@ -23,6 +70,7 @@ export default function HomeScreen() {
   }
   const closeRewardsCam = () => {
     setCameraState(false)
+    addRewards()
   }
 
   const updateCurrentPage = async () => {

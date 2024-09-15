@@ -1,11 +1,14 @@
 "use client"
 
 import { Image, StyleSheet } from "react-native"
-
 import { ThemedText } from "@/components/ThemedText"
 import { ThemedView } from "@/components/ThemedView"
-import { SetStateAction, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { TopNavView } from "@/components/TopNav"
+import { useUser } from "@clerk/clerk-expo"
+import { collection, doc, getDoc, setDoc } from "firebase/firestore"
+import { db } from "../../firebase"
+import { useRouter } from "expo-router"
 
 export default function HomeScreen() {
   const [currentRewards, setCurrentRewards] = useState(0)
@@ -17,83 +20,70 @@ export default function HomeScreen() {
     false,
     false,
   ])
-
-  const updateRewardsProgress = async () => {
-    const myProgress: SetStateAction<boolean[]> = []
-
-    progress.forEach((v) => {
-      myProgress.push(v)
-    })
-
-    setProgress(myProgress)
-  }
-
-  const addReward = async () => {
-    let i = 0
-
-    while (true) {
-      if (!progress[i]) {
-        progress[i] = true
-        break
-      }
-      i++
-    }
-
-    if (progress[progress.length - 1]) {
-      setCurrentRewards(currentRewards + 1)
-      progress.forEach((v, i) => (progress[i] = !v))
-    }
-
-    await updateRewardsProgress()
-  }
+  const { user } = useUser()
+  const router = useRouter()
 
   useEffect(() => {
-    updateRewardsProgress()
-  }, [])
+    async function getRewardsProgress() {
+      if (!user) return
+      const docRef = doc(collection(db, "users"), user.id)
+      const docSnap = await getDoc(docRef)
 
-    return (
-      <>
-        <ThemedView style={styles.feed}>
-          <TopNavView />
-          <ThemedView style={styles.card}>
-            <ThemedView style={styles.cardRewards}>
-              <ThemedText type="title">{currentRewards}</ThemedText>
-              <ThemedText type="subtitle">Current</ThemedText>
-              <ThemedText type="subtitle">Rewards</ThemedText>
+      if (docSnap.exists()) {
+        const userProgress = docSnap.data().progress
+        const userRewards = docSnap.data().rewards
+        setProgress(userProgress)
+        setCurrentRewards(userRewards)
+      } else {
+        await setDoc(docRef, { progress: progress, rewards: currentRewards })
+      }
+    }
+    getRewardsProgress()
+  }, [user, progress, currentRewards])
+
+  return (
+    <>
+      <ThemedView style={styles.feed}>
+        <TopNavView />
+        <ThemedView style={styles.card}>
+          <ThemedView style={styles.cardRewards}>
+            <ThemedText type="title">{currentRewards}</ThemedText>
+            <ThemedText type="subtitle">Current</ThemedText>
+            <ThemedText type="subtitle">Rewards</ThemedText>
+          </ThemedView>
+          <ThemedView style={styles.cardStack}>
+            <ThemedView style={styles.cardInfo}>
+              <Image
+                source={require("@/assets/images/carwashgold.png")}
+                style={styles.logo}
+              />
+              <ThemedView style={styles.cardCol}>
+                <ThemedText type="subtitle">YOUR REWARD</ThemedText>
+                <ThemedText>
+                  Only {progress.filter((value) => !value).length} more washes
+                  away from a free Jersey Shine Wash or Discounted Express
+                  Service!
+                </ThemedText>
+              </ThemedView>
             </ThemedView>
-            <ThemedView style={styles.cardStack}>
-              <ThemedView style={styles.cardInfo}>
+            <ThemedView style={styles.cardProgress}>
+              {progress.map((value, index) => (
                 <Image
-                  source={require("@/assets/images/carwashgold.png")}
-                  style={styles.logo}
+                  key={index}
+                  source={
+                    value
+                      ? require("@/assets/images/check.png")
+                      : require("@/assets/images/cancel.png")
+                  }
+                  style={styles.progressImage}
                 />
-                <ThemedView style={styles.cardCol}>
-                  <ThemedText type="subtitle">YOUR REWARD</ThemedText>
-                  <ThemedText>
-                    Only {progress.filter((value) => !value).length} more washes
-                    away from a free Jersey Shine Wash or Discounted Express
-                    Service!
-                  </ThemedText>
-                </ThemedView>
-              </ThemedView>
-              <ThemedView style={styles.cardProgress}>
-                {progress.map((value, index) => (
-                  <Image
-                    key={index}
-                    source={
-                      value
-                        ? require("@/assets/images/check.png")
-                        : require("@/assets/images/cancel.png")
-                    }
-                    style={styles.progressImage}
-                  />
-                ))}
-              </ThemedView>
+              ))}
             </ThemedView>
           </ThemedView>
         </ThemedView>
-      </>
-    )
+      </ThemedView>
+    </>
+  )
 }
 
 const styles = StyleSheet.create({

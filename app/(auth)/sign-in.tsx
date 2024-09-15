@@ -1,10 +1,14 @@
 import { useSignIn } from "@clerk/clerk-expo"
 import { Link, useRouter } from "expo-router"
-import { TextInput, Button, StyleSheet, Image } from "react-native"
+import {
+  TextInput,
+  Button,
+  StyleSheet,
+  Image,
+} from "react-native"
 import React from "react"
 import { ThemedView } from "@/components/ThemedView"
 import { ThemedText } from "@/components/ThemedText"
-import { NodePath } from "@babel/core"
 
 export default function SignInScreen() {
   const { signIn, setActive, isLoaded } = useSignIn()
@@ -14,6 +18,7 @@ export default function SignInScreen() {
   const [password, setPassword] = React.useState("")
   const [visible, setVisible] = React.useState("Show")
   const [passwordVisibility, setPasswordVisibility] = React.useState(false)
+  const [visibleImage, setVisibleImage] = React.useState(true)
 
   const passwordVisibilityEvent = () => {
     setPasswordVisibility(!passwordVisibility)
@@ -51,10 +56,10 @@ export default function SignInScreen() {
 
   return (
     <ThemedView style={styles.signin}>
-      <Image
-        source={require("@/assets/images/businesslogotransparent.png")}
-        style={styles.businessLogo}
-      />
+        <Image
+          source={require("@/assets/images/businesslogotransparent.png")}
+          style={styles.businessLogo}
+        />
       <TextInput
         autoCapitalize="none"
         value={emailAddress}
@@ -108,7 +113,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 3,
     borderRadius: 25,
     color: "#ffffff",
-    height: 50
+    height: 50,
   },
   noAccount: {
     alignItems: "center",
