@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
     flex: 3,
     alignItems: "center",
     gap: 10,
-    marginTop: 50,
+    marginTop: 100,
   },
   card: {
     flexDirection: "row",

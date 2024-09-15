@@ -1,7 +1,9 @@
 import * as React from "react"
-import { TextInput, Button, View } from "react-native"
+import { TextInput, Button, StyleSheet } from "react-native"
 import { useSignUp } from "@clerk/clerk-expo"
 import { useRouter } from "expo-router"
+import { ThemedView } from "@/components/ThemedView"
+import { ThemedText } from "@/components/ThemedText"
 
 export default function SignUpScreen() {
   const { isLoaded, signUp, setActive } = useSignUp()
@@ -9,10 +11,29 @@ export default function SignUpScreen() {
 
   const [emailAddress, setEmailAddress] = React.useState("")
   const [password, setPassword] = React.useState("")
+  const [validPassword, isValidPassword] = React.useState(true)
+  const [visible, setVisible] = React.useState("Show")
+  const [passwordVisibility, setPasswordVisibility] = React.useState(false)
   const [pendingVerification, setPendingVerification] = React.useState(false)
   const [code, setCode] = React.useState("")
 
+  const passwordVisibilityEvent = () => {
+    setPasswordVisibility(!passwordVisibility)
+
+    if (visible === "Show") {
+      setVisible("Hide")
+      return
+    }
+    setVisible("Show")
+  }
+
   const onSignUpPress = async () => {
+    if (password.length < 8) {
+      isValidPassword(false)
+      return
+    } else {
+      isValidPassword(true)
+    }
     if (!isLoaded) {
       return
     }
@@ -57,34 +78,93 @@ export default function SignUpScreen() {
   }
 
   return (
-      <View>
-        {!pendingVerification && (
-          <>
+    <ThemedView style={styles.signup}>
+      {!pendingVerification && (
+        <>
+          <TextInput
+            autoCapitalize="none"
+            value={emailAddress}
+            inputMode="email"
+            placeholder="Email..."
+            onChangeText={(email) => setEmailAddress(email)}
+            style={styles.input}
+            placeholderTextColor={"#ffffff"}
+            textAlign="center"
+            cursorColor={"#128bee"}
+          />
+          <ThemedView style={styles.group}>
             <TextInput
               autoCapitalize="none"
-              value={emailAddress}
-              placeholder="Email..."
-              onChangeText={(email) => setEmailAddress(email)}
-            />
-            <TextInput
               value={password}
               placeholder="Password..."
-              secureTextEntry={true}
+              secureTextEntry={!passwordVisibility}
               onChangeText={(password) => setPassword(password)}
+              style={styles.input}
+              placeholderTextColor={"#ffffff"}
+              textAlign="center"
+              cursorColor={"#128bee"}
             />
-            <Button title="Sign Up" onPress={onSignUpPress} />
-          </>
-        )}
-        {pendingVerification && (
-          <>
-            <TextInput
-              value={code}
-              placeholder="Code..."
-              onChangeText={(code) => setCode(code)}
-            />
-            <Button title="Verify Email" onPress={onPressVerify} />
-          </>
-        )}
-      </View>
+            <ThemedText type="link" onPress={passwordVisibilityEvent}>
+              {`${visible}` + " Password"}
+            </ThemedText>
+          </ThemedView>
+          <Button title="Sign Up" onPress={onSignUpPress} />
+          {!validPassword ? (
+            <ThemedText>Password must be at least 8 characters</ThemedText>
+          ) : (
+            <ThemedText></ThemedText>
+          )}
+        </>
+      )}
+      {pendingVerification && (
+        <>
+          <ThemedText style={styles.verify}>
+            You should receive an email shortly with a verification code. Please
+            enter the code to continue with signup.
+          </ThemedText>
+          <TextInput
+            autoCapitalize="none"
+            value={code}
+            inputMode="numeric"
+            placeholder="Code..."
+            onChangeText={(code) => setCode(code)}
+            style={styles.input}
+            placeholderTextColor={"#ffffff"}
+            textAlign="center"
+            cursorColor={"#128bee"}
+          />
+          <Button title="Verify Email" onPress={onPressVerify} />
+        </>
+      )}
+    </ThemedView>
   )
 }
+
+const styles = StyleSheet.create({
+  signup: {
+    display: "flex",
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 100,
+  },
+  input: {
+    width: "75%",
+    borderBottomColor: "#128bee",
+    borderStyle: "solid",
+    borderBottomWidth: 3,
+    borderRadius: 25,
+    color: "#ffffff",
+  },
+  group: {
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100%",
+    gap: 10,
+  },
+  verify: {
+    alignItems: "center",
+    justifyContent: "center",
+    textAlign: "center",
+  },
+})
