@@ -1,12 +1,14 @@
-import { Tabs } from "expo-router"
+import { Tabs, Link } from "expo-router"
 import React from "react"
-
+import { StyleSheet, Image } from "react-native"
 import { TabBarIcon } from "@/components/navigation/TabBarIcon"
 import { Colors } from "@/constants/Colors"
-import { useColorScheme } from "@/hooks/useColorScheme"
+import { SignedIn, SignedOut } from "@clerk/clerk-expo"
+import { ThemedView } from "@/components/ThemedView"
+import { ThemedText } from "@/components/ThemedText"
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme()
+  const colorScheme = "dark"
 
   return (
     <Tabs

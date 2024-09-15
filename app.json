@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Jersey Shine Rewards",
-    "slug": "Jersey Shine Rewards",
+    "slug": "jersey-shine-rewards",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -52,7 +52,7 @@
         "origin": false
       },
       "eas": {
-        "projectId": "d4fa9ebb-3b07-4cd8-aa50-c6079880cd22"
+        "projectId": "a1bf5c71-be5e-4947-9110-b9e5c5409515"
       }
     }
   }

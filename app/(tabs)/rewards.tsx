@@ -2,17 +2,17 @@
 
 import { StyleSheet, Image, Button } from "react-native"
 import { useEffect, useState } from "react"
-import {
-  Camera,
-  useCameraDevice,
-  useCameraPermission,
-  useCodeScanner,
-} from "react-native-vision-camera"
+// import {
+//   Camera,
+//   useCameraDevice,
+//   useCameraPermission,
+//   useCodeScanner,
+// } from "react-native-vision-camera"
 import { ThemedText } from "@/components/ThemedText"
 import { ThemedView } from "@/components/ThemedView"
 
 export default function HomeScreen() {
-  const { hasPermission, requestPermission } = useCameraPermission()
+  // const { hasPermission, requestPermission } = useCameraPermission()
 
   const [openCamera, setCameraState] = useState(false)
 
@@ -28,39 +28,39 @@ export default function HomeScreen() {
   const updateCurrentPage = async () => {
     setCameraState(openCamera)
   }
-  const device = useCameraDevice("back")
+  // const device = useCameraDevice("back")
 
-  const codeScanner = useCodeScanner({
-    codeTypes: ["qr", "ean-13"],
-    onCodeScanned: (codes) => {
-      codes.forEach((c) => {
-        if (c.value) {
-          setqrCode(c.value)
-          setCameraState(false)
-        }
-      })
-    },
-  })
+  // const codeScanner = useCodeScanner({
+  //   codeTypes: ["qr", "ean-13"],
+  //   onCodeScanned: (codes) => {
+  //     codes.forEach((c) => {
+  //       if (c.value) {
+  //         setqrCode(c.value)
+  //         setCameraState(false)
+  //       }
+  //     })
+  //   },
+  // })
 
-  useEffect(() => {
-    requestPermission()
-    updateCurrentPage()
-  }, [])
+  // useEffect(() => {
+  //   requestPermission()
+  //   updateCurrentPage()
+  // }, [])
 
-  if (!hasPermission) {
-    return (
-      <ThemedView style={styles.noCamAccess}>
-        <ThemedText>Please allow camera access to scan rewards</ThemedText>
-      </ThemedView>
-    )
-  }
-  if (device == null) {
-    return (
-      <ThemedView style={styles.noCamAccess}>
-        <ThemedText>Device not found</ThemedText>
-      </ThemedView>
-    )
-  }
+  // if (!hasPermission) {
+  //   return (
+  //     <ThemedView style={styles.noCamAccess}>
+  //       <ThemedText>Please allow camera access to scan rewards</ThemedText>
+  //     </ThemedView>
+  //   )
+  // }
+  // if (device == null) {
+  //   return (
+  //     <ThemedView style={styles.noCamAccess}>
+  //       <ThemedText>Device not found</ThemedText>
+  //     </ThemedView>
+  //   )
+  // }
 
   return openCamera ? (
     <ThemedView style={styles.codeOverlay}>
@@ -68,12 +68,12 @@ export default function HomeScreen() {
         source={require("@/assets/images/qrscan-overlay.png")}
         style={styles.camHole}
       />
-      <Camera
+      {/* <Camera
         style={StyleSheet.absoluteFill}
         device={device}
         isActive={true}
         codeScanner={codeScanner}
-      />
+      /> */}
       <ThemedView style={styles.close}>
         <Button onPress={closeRewardsCam} title="Close Scan" color="#128bee" />
       </ThemedView>
