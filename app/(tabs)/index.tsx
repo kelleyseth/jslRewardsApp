@@ -5,6 +5,7 @@ import { Image, StyleSheet } from "react-native"
 import { ThemedText } from "@/components/ThemedText"
 import { ThemedView } from "@/components/ThemedView"
 import { SetStateAction, useEffect, useState } from "react"
+import { TopNavView } from "@/components/TopNav"
 
 export default function HomeScreen() {
   const [currentRewards, setCurrentRewards] = useState(0)
@@ -50,46 +51,49 @@ export default function HomeScreen() {
     updateRewardsProgress()
   }, [])
 
-  return (
-    <ThemedView style={styles.feed}>
-      <ThemedView style={styles.card}>
-        <ThemedView style={styles.cardRewards}>
-          <ThemedText type="title">{currentRewards}</ThemedText>
-          <ThemedText type="subtitle">Current</ThemedText>
-          <ThemedText type="subtitle">Rewards</ThemedText>
-        </ThemedView>
-        <ThemedView style={styles.cardStack}>
-          <ThemedView style={styles.cardInfo}>
-            <Image
-              source={require("@/assets/images/carwashgold.png")}
-              style={styles.logo}
-            />
-            <ThemedView style={styles.cardCol}>
-              <ThemedText type="subtitle">YOUR REWARD</ThemedText>
-              <ThemedText>
-                Only {progress.filter((value) => !value).length} more washes
-                away from a free Jersey Shine Wash or Discounted Express
-                Service!
-              </ThemedText>
+    return (
+      <>
+        <ThemedView style={styles.feed}>
+          <TopNavView navHeader="logo" />
+          <ThemedView style={styles.card}>
+            <ThemedView style={styles.cardRewards}>
+              <ThemedText type="title">{currentRewards}</ThemedText>
+              <ThemedText type="subtitle">Current</ThemedText>
+              <ThemedText type="subtitle">Rewards</ThemedText>
+            </ThemedView>
+            <ThemedView style={styles.cardStack}>
+              <ThemedView style={styles.cardInfo}>
+                <Image
+                  source={require("@/assets/images/carwashgold.png")}
+                  style={styles.logo}
+                />
+                <ThemedView style={styles.cardCol}>
+                  <ThemedText type="subtitle">YOUR REWARD</ThemedText>
+                  <ThemedText>
+                    Only {progress.filter((value) => !value).length} more washes
+                    away from a free Jersey Shine Wash or Discounted Express
+                    Service!
+                  </ThemedText>
+                </ThemedView>
+              </ThemedView>
+              <ThemedView style={styles.cardProgress}>
+                {progress.map((value, index) => (
+                  <Image
+                    key={index}
+                    source={
+                      value
+                        ? require("@/assets/images/check.png")
+                        : require("@/assets/images/cancel.png")
+                    }
+                    style={styles.progressImage}
+                  />
+                ))}
+              </ThemedView>
             </ThemedView>
           </ThemedView>
-          <ThemedView style={styles.cardProgress}>
-            {progress.map((value, index) => (
-              <Image
-                key={index}
-                source={
-                  value
-                    ? require("@/assets/images/check.png")
-                    : require("@/assets/images/cancel.png")
-                }
-                style={styles.progressImage}
-              />
-            ))}
-          </ThemedView>
         </ThemedView>
-      </ThemedView>
-    </ThemedView>
-  )
+      </>
+    )
 }
 
 const styles = StyleSheet.create({
@@ -102,17 +106,17 @@ const styles = StyleSheet.create({
   feed: {
     flex: 3,
     alignItems: "center",
-    gap: 10,
-    marginTop: 100,
+    marginTop: 50,
   },
   card: {
     flexDirection: "row",
     height: 200,
+    width: "100%",
   },
   cardRewards: {
     width: "25%",
     height: 200,
-    gap: 10,
+    gap: 5,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#128bee",
@@ -135,9 +139,8 @@ const styles = StyleSheet.create({
   cardProgress: {
     flexDirection: "row",
     height: 50,
-    gap: 25,
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "space-evenly",
     backgroundColor: "#000000",
     borderStyle: "solid",
     borderBottomColor: "#ffffff",
