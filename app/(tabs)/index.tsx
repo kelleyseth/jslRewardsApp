@@ -54,7 +54,7 @@ export default function HomeScreen() {
     return (
       <>
         <ThemedView style={styles.feed}>
-          <TopNavView navHeader="logo" />
+          <TopNavView />
           <ThemedView style={styles.card}>
             <ThemedView style={styles.cardRewards}>
               <ThemedText type="title">{currentRewards}</ThemedText>

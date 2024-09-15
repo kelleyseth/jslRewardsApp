@@ -4,46 +4,17 @@ import { TabBarIcon } from "@/components/navigation/TabBarIcon"
 import { Link } from "expo-router"
 
 export type TopNavViewProps = ViewProps & {
-  navHeader: "logo" | "pageName"
-  title?: string
+  pageName?: string
 }
 
 export function TopNavView({
   style,
-  navHeader,
-  title,
+  pageName,
   ...otherProps
 }: TopNavViewProps) {
   const backgroundColor = "#000000"
   //   const backgroundColor = "#f4cb56"
 
-  if (navHeader === "logo")
-    return (
-      <View
-        style={[
-          {
-            flexDirection: "row",
-            backgroundColor,
-            height: 75,
-            width: "100%",
-            justifyContent: "space-between",
-            alignItems: "center",
-            paddingHorizontal: 15,
-          },
-          style,
-        ]}
-        {...otherProps}
-      >
-        <Link href="/(user)">
-          <TabBarIcon name={"person-circle-outline"} color={"#128bee"} />
-        </Link>
-        <Image
-          source={require("@/assets/images/businesslogotransparent.png")}
-          style={{ aspectRatio: 16 / 9, width: 75 }}
-        />
-        <TabBarIcon name={"home"} />
-      </View>
-    )
   return (
     <View
       style={[
@@ -60,9 +31,18 @@ export function TopNavView({
       ]}
       {...otherProps}
     >
-      <ThemedText type="title">{title}</ThemedText>
-      <ThemedText type="title">{title}</ThemedText>
-      <ThemedText type="title">{title}</ThemedText>
+      <Link href="/(user)">
+        <TabBarIcon name={"person-circle-outline"} color={"#128bee"} />
+      </Link>
+      {pageName ? (
+        <ThemedText type="title">{pageName}</ThemedText>
+      ) : (
+        <Image
+          source={require("@/assets/images/businesslogotransparent.png")}
+          style={{ aspectRatio: 16 / 9, width: 75 }}
+        />
+      )}
+      <TabBarIcon name={"home"} />
     </View>
   )
 }

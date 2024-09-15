@@ -1,5 +1,5 @@
 import * as React from "react"
-import { TextInput, Button, StyleSheet } from "react-native"
+import { TextInput, Button, StyleSheet, Image } from "react-native"
 import { useSignUp } from "@clerk/clerk-expo"
 import { useRouter } from "expo-router"
 import { ThemedView } from "@/components/ThemedView"
@@ -79,6 +79,10 @@ export default function SignUpScreen() {
 
   return (
     <ThemedView style={styles.signup}>
+      <Image
+        source={require("@/assets/images/businesslogotransparent.png")}
+        style={styles.businessLogo}
+      />
       {!pendingVerification && (
         <>
           <TextInput
@@ -155,16 +159,21 @@ const styles = StyleSheet.create({
     borderBottomWidth: 3,
     borderRadius: 25,
     color: "#ffffff",
+    height: 50
   },
   group: {
     alignItems: "center",
     justifyContent: "center",
     width: "100%",
-    gap: 10,
+    gap: 20,
   },
   verify: {
     alignItems: "center",
     justifyContent: "center",
     textAlign: "center",
+  },
+  businessLogo: {
+    aspectRatio: 16 / 9,
+    height: 150,
   },
 })
