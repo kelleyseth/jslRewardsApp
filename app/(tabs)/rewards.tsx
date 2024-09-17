@@ -1,7 +1,7 @@
 "use client"
 
 import { StyleSheet, Image, Button } from "react-native"
-import { SetStateAction, useEffect, useState } from "react"
+import { useState, useEffect } from "react"
 // import {
 //   Camera,
 //   useCameraDevice,
@@ -12,21 +12,20 @@ import { ThemedText } from "@/components/ThemedText"
 import { ThemedView } from "@/components/ThemedView"
 import { db } from "../../firebase"
 import {
-  deleteDoc,
-  query,
   collection,
   doc,
-  getDocs,
   getDoc,
-  setDoc,
   updateDoc,
 } from "firebase/firestore"
 import { useUser } from "@clerk/clerk-expo"
 
 export default function HomeScreen() {
   // const { hasPermission, requestPermission } = useCameraPermission()
-
+  // const device = useCameraDevice("back")
   const { user } = useUser()
+  const [openCamera, setCameraState] = useState(false)
+  const [scannedCode, setScannedCode] = useState("")
+  const qrCode  = 'Daily scan for rewards app created by Seth, are you even reading this?'
 
   const addRewards = async () => {
     if (!user) return
@@ -48,43 +47,37 @@ export default function HomeScreen() {
       }
 
       if (userProgress[userProgress.length - 1]) {
-        await setDoc(docRef, {
+        await updateDoc(docRef, {
           progress: userProgress.map(() => false),
           rewards: userRewards + 1,
         })
-
       } else {
         await updateDoc(docRef, {
-          progress: userProgress
+          progress: userProgress,
         })
       }
     }
   }
 
-  const [openCamera, setCameraState] = useState(false)
-
-  const [qrcode, setqrCode] = useState("hello")
-
   const openRewardsCam = () => {
     setCameraState(true)
   }
+
   const closeRewardsCam = () => {
     setCameraState(false)
     addRewards()
   }
-
-  const updateCurrentPage = async () => {
-    setCameraState(openCamera)
-  }
-  // const device = useCameraDevice("back")
 
   // const codeScanner = useCodeScanner({
   //   codeTypes: ["qr", "ean-13"],
   //   onCodeScanned: (codes) => {
   //     codes.forEach((c) => {
   //       if (c.value) {
-  //         setqrCode(c.value)
+  //         setScannedCode(c.value)
   //         setCameraState(false)
+  //         if(scannedCode === qrCode)
+  //           addRewards()
+  //         return
   //       }
   //     })
   //   },
@@ -92,7 +85,6 @@ export default function HomeScreen() {
 
   // useEffect(() => {
   //   requestPermission()
-  //   updateCurrentPage()
   // }, [])
 
   // if (!hasPermission) {

@@ -17,12 +17,7 @@ export default function UserInfo() {
 
   return (
     <ThemedView style={styles.layout}>
-      <Button
-        title="Sign out"
-        onPress={() => {
-          signOut()
-        }}
-      />
+      <Button title="Sign out" onPress={() => signOut()} />
     </ThemedView>
   )
 }

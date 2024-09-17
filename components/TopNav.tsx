@@ -31,7 +31,7 @@ export function TopNavView({
       ]}
       {...otherProps}
     >
-      <Link href="/(user)">
+      <Link href="/user-info">
         <TabBarIcon name={"person-circle-outline"} color={"#128bee"} />
       </Link>
       {pageName ? (
@@ -39,7 +39,7 @@ export function TopNavView({
       ) : (
         <Image
           source={require("@/assets/images/businesslogotransparent.png")}
-          style={{ aspectRatio: 16 / 9, width: 75 }}
+          style={{ aspectRatio: 16 / 9, height: 50, width: 75 }}
         />
       )}
       <TabBarIcon name={"location-outline"} color={'#128bee'} />

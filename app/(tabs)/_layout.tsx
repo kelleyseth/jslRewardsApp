@@ -20,7 +20,7 @@ export default function TabLayout() {
           tabBarIcon: ({ focused }) => (
             <TabBarIcon
               name={focused ? "home" : "home-outline"}
-              color={focused ? '#128bee' : '#f4cb56'}
+              color={"#128bee"}
             />
           ),
         }}
@@ -32,10 +32,15 @@ export default function TabLayout() {
           tabBarIcon: ({ focused }) => (
             <TabBarIcon
               name={focused ? "qr-code" : "qr-code-outline"}
-              color={focused ? '#128bee' : '#f4cb56'}
-
+              color={"#128bee"}
             />
           ),
+        }}
+      />
+      <Tabs.Screen
+        name="user-info"
+        options={{
+          href: null
         }}
       />
     </Tabs>

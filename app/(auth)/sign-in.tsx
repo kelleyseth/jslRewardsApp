@@ -6,7 +6,7 @@ import {
   StyleSheet,
   Image,
 } from "react-native"
-import React from "react"
+import {useState, useCallback} from "react"
 import { ThemedView } from "@/components/ThemedView"
 import { ThemedText } from "@/components/ThemedText"
 
@@ -14,11 +14,11 @@ export default function SignInScreen() {
   const { signIn, setActive, isLoaded } = useSignIn()
   const router = useRouter()
 
-  const [emailAddress, setEmailAddress] = React.useState("")
-  const [password, setPassword] = React.useState("")
-  const [visible, setVisible] = React.useState("Show")
-  const [passwordVisibility, setPasswordVisibility] = React.useState(false)
-  const [visibleImage, setVisibleImage] = React.useState(true)
+  const [emailAddress, setEmailAddress] = useState("")
+  const [password, setPassword] = useState("")
+  const [visible, setVisible] = useState("Show")
+  const [passwordVisibility, setPasswordVisibility] = useState(false)
+  const [visibleImage, setVisibleImage] = useState(true)
 
   const passwordVisibilityEvent = () => {
     setPasswordVisibility(!passwordVisibility)
@@ -30,7 +30,7 @@ export default function SignInScreen() {
     setVisible("Show")
   }
 
-  const onSignInPress = React.useCallback(async () => {
+  const onSignInPress = useCallback(async () => {
     if (!isLoaded) {
       return
     }
@@ -114,6 +114,7 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     color: "#ffffff",
     height: 50,
+    textAlign: 'center'
   },
   noAccount: {
     alignItems: "center",
@@ -127,5 +128,6 @@ const styles = StyleSheet.create({
   businessLogo: {
     aspectRatio: 16 / 9,
     height: 150,
+    width: 250
   },
 })

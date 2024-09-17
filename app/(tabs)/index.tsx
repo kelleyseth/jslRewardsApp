@@ -8,7 +8,6 @@ import { TopNavView } from "@/components/TopNav"
 import { useUser } from "@clerk/clerk-expo"
 import { collection, doc, getDoc, setDoc } from "firebase/firestore"
 import { db } from "../../firebase"
-import { useRouter } from "expo-router"
 
 export default function HomeScreen() {
   const [currentRewards, setCurrentRewards] = useState(0)
@@ -21,7 +20,6 @@ export default function HomeScreen() {
     false,
   ])
   const { user } = useUser()
-  const router = useRouter()
 
   useEffect(() => {
     async function getRewardsProgress() {

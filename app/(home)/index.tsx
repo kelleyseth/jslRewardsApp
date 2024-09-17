@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
   businessLogo: {
     aspectRatio: 16 / 9,
     height: 150,
+    width: 250,
     justifyContent: "center",
     alignSelf: "center",
     top: "30%",

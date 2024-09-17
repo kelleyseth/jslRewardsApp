@@ -175,5 +175,6 @@ const styles = StyleSheet.create({
   businessLogo: {
     aspectRatio: 16 / 9,
     height: 150,
+    width: 250
   },
 })
