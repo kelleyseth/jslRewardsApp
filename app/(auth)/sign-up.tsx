@@ -1,5 +1,5 @@
 import * as React from "react"
-import { TextInput, Button, StyleSheet, Image } from "react-native"
+import { TextInput, Button, StyleSheet, Image, Alert } from "react-native"
 import { useSignUp } from "@clerk/clerk-expo"
 import { useRouter } from "expo-router"
 import { ThemedView } from "@/components/ThemedView"
@@ -8,7 +8,6 @@ import { ThemedText } from "@/components/ThemedText"
 export default function SignUpScreen() {
   const { isLoaded, signUp, setActive } = useSignUp()
   const router = useRouter()
-
   const [emailAddress, setEmailAddress] = React.useState("")
   const [password, setPassword] = React.useState("")
   const [validPassword, isValidPassword] = React.useState(true)
@@ -51,6 +50,7 @@ export default function SignUpScreen() {
       // See https://clerk.com/docs/custom-flows/error-handling
       // for more info on error handling
       console.error(JSON.stringify(err, null, 2))
+      Alert.alert('Error', err.errors[0].message)
     }
   }
 

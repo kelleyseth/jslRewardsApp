@@ -5,15 +5,16 @@ import {
   Button,
   StyleSheet,
   Image,
+  Alert,
 } from "react-native"
 import {useState, useCallback} from "react"
 import { ThemedView } from "@/components/ThemedView"
 import { ThemedText } from "@/components/ThemedText"
+import { TabBarIcon } from "@/components/navigation/TabBarIcon"
 
 export default function SignInScreen() {
   const { signIn, setActive, isLoaded } = useSignIn()
   const router = useRouter()
-
   const [emailAddress, setEmailAddress] = useState("")
   const [password, setPassword] = useState("")
   const [visible, setVisible] = useState("Show")
@@ -51,6 +52,7 @@ export default function SignInScreen() {
       }
     } catch (err: any) {
       console.error(JSON.stringify(err, null, 2))
+      Alert.alert('Error', err.errors[0].message)
     }
   }, [isLoaded, emailAddress, password])
 

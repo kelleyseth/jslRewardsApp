@@ -35,7 +35,7 @@ export function TopNavView({
         <TabBarIcon name={"person-circle-outline"} color={"#128bee"} />
       </Link>
       {pageName ? (
-        <ThemedText type="title">{pageName}</ThemedText>
+        <ThemedText type="subtitle">{pageName}</ThemedText>
       ) : (
         <Image
           source={require("@/assets/images/businesslogotransparent.png")}
