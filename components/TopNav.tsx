@@ -1,4 +1,4 @@
-import { Image, View, type ViewProps } from "react-native"
+import { Image, Linking, Platform, View, type ViewProps } from "react-native"
 import { ThemedText } from "./ThemedText"
 import { TabBarIcon } from "@/components/navigation/TabBarIcon"
 import { Link } from "expo-router"
@@ -42,7 +42,23 @@ export function TopNavView({
           style={{ aspectRatio: 16 / 9, height: 50, width: 75 }}
         />
       )}
-      <TabBarIcon name={"location-outline"} color={'#128bee'} />
+      <TabBarIcon
+        name={"location-outline"}
+        color={"#128bee"}
+        onPress={() => {
+          const scheme = Platform.select({
+            ios: "maps://0,0?q=",
+            android: "geo:0,0?q=",
+          })
+          const latLng = `${39.90220},${-74.83670}`
+          const url = Platform.select({
+            ios: `${scheme}@${latLng}`,
+            android: `${scheme}${latLng}()`,
+          })
+
+          Linking.openURL(url)
+        }}
+      />
     </View>
   )
 }

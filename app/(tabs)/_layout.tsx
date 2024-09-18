@@ -40,7 +40,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="user-info"
         options={{
-          href: null
+          href: null,
         }}
       />
     </Tabs>

@@ -5,6 +5,7 @@ import { useClerk, useUser } from "@clerk/clerk-expo"
 import { Button, StyleSheet } from "react-native"
 import { useRouter } from "expo-router"
 import { useEffect } from "react"
+import { TopNavView } from "@/components/TopNav"
 
 export default function UserInfo() {
   const { signOut } = useClerk()
@@ -17,6 +18,7 @@ export default function UserInfo() {
 
   return (
     <ThemedView style={styles.layout}>
+      <TopNavView pageName="My Info" />
       <Button title="Sign out" onPress={() => signOut()} />
     </ThemedView>
   )
@@ -24,9 +26,7 @@ export default function UserInfo() {
 
 const styles = StyleSheet.create({
   layout: {
-    display: "flex",
-    flex: 1,
     alignItems: "center",
-    justifyContent: "center",
+    marginTop: 50
   },
 })

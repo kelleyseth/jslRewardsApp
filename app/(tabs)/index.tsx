@@ -67,13 +67,13 @@ export default function HomeScreen() {
             <ThemedView style={styles.cardProgress}>
               {progress.map((value, index) => (
                 <Image
-                  key={index}
-                  source={
-                    value
-                      ? require("@/assets/images/check.png")
-                      : require("@/assets/images/cancel.png")
-                  }
-                  style={styles.progressImage}
+                key={index}
+                source={
+                  value
+                  ? require("@/assets/images/check.png")
+                  : require("@/assets/images/cancel.png")
+                }
+                style={styles.progressImage}
                 />
               ))}
             </ThemedView>

@@ -37,6 +37,7 @@ export default function RewardScreen() {
   const [timerKey, setTimerKey] = useState(0)
   const [runningTimer, setRunningTimer] = useState(true)
   const [modalVisible, setModalVisible] = useState(false)
+  const maxReward = currentRewards >= 3 ? 3 : currentRewards
 
   const addRewards = async () => {
     if (!user) return
@@ -220,6 +221,7 @@ export default function RewardScreen() {
             <Button
               onPress={() => {
                 redeemReward()
+                disableButton("redeem", 3000) // testing
                 // disableButton('redeem', 300000)
               }}
               disabled={toggleRedeemButton}
@@ -229,7 +231,7 @@ export default function RewardScreen() {
             <ThemedText type="subtitle">No Rewards</ThemedText>
           )}
         </ThemedView>
-        {Array.from({ length: currentRewards }, (_, i) => (
+        {Array.from({ length: maxReward }, (_, i) => (
           <ThemedView key={i} style={{ marginTop: 10 }}>
             <ThemedView style={styles.myReward}>
               <Image
@@ -294,7 +296,12 @@ export default function RewardScreen() {
               )
             }}
           </CountdownCircleTimer>
-          <Button onPress={() => {setModalVisible(false)}} title="Close Reward" />
+          <Button
+            onPress={() => {
+              setModalVisible(false)
+            }}
+            title="Close Reward"
+          />
         </ThemedView>
       </Modal>
     </>
@@ -304,7 +311,7 @@ export default function RewardScreen() {
 const styles = StyleSheet.create({
   timerContainer: {
     alignItems: "center",
-    justifyContent: 'center',
+    justifyContent: "center",
     flex: 1,
     gap: 75,
   },
