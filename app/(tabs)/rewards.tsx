@@ -214,36 +214,46 @@ export default function RewardScreen() {
             />
           </ThemedView>
         </ThemedView>
-        <ThemedView style={{ marginTop: 50 }} />
-        <ThemedView style={styles.currentRewards}>
-          <ThemedText type="title">Current Rewards</ThemedText>
-          {currentRewards > 0 ? (
-            <Button
-              onPress={() => {
-                redeemReward()
-                disableButton("redeem", 3000) // testing
-                // disableButton('redeem', 300000)
-              }}
-              disabled={toggleRedeemButton}
-              title={!toggleRedeemButton ? "Redeem Rewards" : "Reward Redeemed"}
-            />
-          ) : (
-            <ThemedText type="subtitle">No Rewards</ThemedText>
-          )}
-        </ThemedView>
-        {Array.from({ length: maxReward }, (_, i) => (
-          <ThemedView key={i} style={{ marginTop: 10 }}>
-            <ThemedView style={styles.myReward}>
-              <Image
-                source={require("@/assets/images/carwashgold.png")}
-                style={styles.rewardIcon}
+        <ThemedView style={{ paddingHorizontal: 15 }}>
+          <ThemedView style={{ marginTop: 50 }} />
+          <ThemedView style={styles.currentRewards}>
+            <ThemedText type="subtitle">Current Rewards</ThemedText>
+            {currentRewards > 0 ? (
+              <Button
+                onPress={() => {
+                  redeemReward()
+                  disableButton("redeem", 3000) // testing
+                  // disableButton('redeem', 300000)
+                }}
+                disabled={toggleRedeemButton}
+                title={
+                  !toggleRedeemButton ? "Redeem Reward" : "Reward Redeemed"
+                }
               />
-              <ThemedText type="defaultSemiBold">
-                Free Jersey Shine or Discounted Express Service
-              </ThemedText>
-            </ThemedView>
+            ) : (
+              <ThemedText type="subtitle">No Rewards</ThemedText>
+            )}
           </ThemedView>
-        ))}
+          {Array.from({ length: maxReward }, (_, i) => (
+            <ThemedView key={i} style={{ marginTop: 10, marginBottom: 10 }}>
+              <ThemedView style={styles.myRewardBG1}>
+                <ThemedView style={styles.myRewardBG2}>
+                  <Image
+                    source={require("@/assets/images/carwashgold.png")}
+                    style={styles.rewardIcon}
+                  />
+                  <ThemedText type="defaultSemiBold">
+                    Free Jersey Shine or Discounted Express Service
+                  </ThemedText>
+                </ThemedView>
+              </ThemedView>
+            </ThemedView>
+          ))}
+          <ThemedText type="small">
+            Once reward is redeemed you have a 5 minute timer to present your
+            reward to the cashier. Cannot be combined with any other offer.
+          </ThemedText>
+        </ThemedView>
       </>
       <Modal
         animationType="slide"
@@ -323,6 +333,7 @@ const styles = StyleSheet.create({
   currentRewards: {
     flexDirection: "row",
     marginTop: 50,
+    justifyContent: "space-between",
     gap: 25,
     marginLeft: 25,
     marginBottom: 25,
@@ -333,15 +344,28 @@ const styles = StyleSheet.create({
     left: 0,
     bottom: 0,
   },
-  myReward: {
+  myRewardBG1: {
     flexDirection: "row",
-    height: 75,
+    height: 60,
     borderRadius: 30,
     width: "100%",
     alignItems: "center",
     justifyContent: "center",
     textAlign: "center",
-    backgroundColor: "#128bee",
+    backgroundColor: "#ffffff",
+    // backgroundColor: "rgba(2,217,255,.4)",
+    gap: 10,
+  },
+  myRewardBG2: {
+    flexDirection: "row",
+    height: 60,
+    borderRadius: 30,
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+    textAlign: "center",
+    // backgroundColor: "#ffffff",
+    backgroundColor: "rgba(18,139,238,.6)",
     gap: 10,
   },
   noCamAccess: {

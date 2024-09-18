@@ -1,16 +1,9 @@
 import { useSignIn } from "@clerk/clerk-expo"
 import { Link, useRouter } from "expo-router"
-import {
-  TextInput,
-  Button,
-  StyleSheet,
-  Image,
-  Alert,
-} from "react-native"
-import {useState, useCallback} from "react"
+import { TextInput, Button, StyleSheet, Image, Alert } from "react-native"
+import { useState, useCallback } from "react"
 import { ThemedView } from "@/components/ThemedView"
 import { ThemedText } from "@/components/ThemedText"
-import { TabBarIcon } from "@/components/navigation/TabBarIcon"
 
 export default function SignInScreen() {
   const { signIn, setActive, isLoaded } = useSignIn()
@@ -52,16 +45,16 @@ export default function SignInScreen() {
       }
     } catch (err: any) {
       console.error(JSON.stringify(err, null, 2))
-      Alert.alert('Error', err.errors[0].message)
+      Alert.alert("Error", err.errors[0].message)
     }
   }, [isLoaded, emailAddress, password])
 
   return (
     <ThemedView style={styles.signin}>
-        <Image
-          source={require("@/assets/images/businesslogotransparent.png")}
-          style={styles.businessLogo}
-        />
+      <Image
+        source={require("@/assets/images/businesslogotransparent.png")}
+        style={styles.businessLogo}
+      />
       <TextInput
         autoCapitalize="none"
         value={emailAddress}
@@ -85,9 +78,14 @@ export default function SignInScreen() {
           textAlign="center"
           cursorColor={"#128bee"}
         />
-        <ThemedText type="link" onPress={passwordVisibilityEvent}>
-          {`${visible}` + " Password"}
-        </ThemedText>
+        <ThemedView style={{flexDirection:'row', gap:25, justifyContent: "space-between" }}>
+          <ThemedText type="link" onPress={() => {router.push('/forgot-password')}}>
+            Forgot Password
+          </ThemedText>
+          <ThemedText type="link" onPress={passwordVisibilityEvent}>
+            {`${visible}` + " Password"}
+          </ThemedText>
+        </ThemedView>
       </ThemedView>
       <Button title="Sign In" onPress={onSignInPress} />
       <ThemedView style={styles.noAccount}>
@@ -116,7 +114,7 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     color: "#ffffff",
     height: 50,
-    textAlign: 'center'
+    textAlign: "center",
   },
   noAccount: {
     alignItems: "center",
@@ -130,6 +128,6 @@ const styles = StyleSheet.create({
   businessLogo: {
     aspectRatio: 16 / 9,
     height: 150,
-    width: 250
+    width: 250,
   },
 })
