@@ -15,6 +15,7 @@
     "preset": "jest-expo"
   },
   "dependencies": {
+    "@clerk/backend": "^1.13.2",
     "@clerk/clerk-expo": "^2.2.10",
     "@expo/vector-icons": "^14.0.2",
     "@react-navigation/native": "^6.0.2",

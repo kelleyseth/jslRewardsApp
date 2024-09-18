@@ -131,6 +131,7 @@ export default function ForgotPasswordPage() {
       </ThemedView>
       <TextInput
         autoCapitalize="none"
+        inputMode="numeric"
         value={code}
         placeholder="Code..."
         onChangeText={(emailCode) => setCode(emailCode)}
@@ -148,8 +149,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "center",
     gap: 100,
+    marginTop: 125
   },
   input: {
     width: "75%",

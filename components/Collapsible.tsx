@@ -33,9 +33,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 6,
+    borderBottomColor:'#128bee',
+    borderBottomWidth: 1,
+    minWidth: '90%',
+    paddingVertical: 12,
   },
   content: {
-    marginTop: 6,
-    marginLeft: 24,
+    marginTop: 12,
   },
 });

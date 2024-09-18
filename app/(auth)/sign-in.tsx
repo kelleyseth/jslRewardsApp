@@ -12,7 +12,6 @@ export default function SignInScreen() {
   const [password, setPassword] = useState("")
   const [visible, setVisible] = useState("Show")
   const [passwordVisibility, setPasswordVisibility] = useState(false)
-  const [visibleImage, setVisibleImage] = useState(true)
 
   const passwordVisibilityEvent = () => {
     setPasswordVisibility(!passwordVisibility)
@@ -103,8 +102,8 @@ const styles = StyleSheet.create({
     display: "flex",
     flex: 1,
     alignItems: "center",
-    justifyContent: "center",
     gap: 100,
+    marginTop: 125
   },
   input: {
     width: "75%",

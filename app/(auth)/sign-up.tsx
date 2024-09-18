@@ -149,8 +149,8 @@ const styles = StyleSheet.create({
     display: "flex",
     flex: 1,
     alignItems: "center",
-    justifyContent: "center",
     gap: 100,
+    marginTop: 125
   },
   input: {
     width: "75%",
