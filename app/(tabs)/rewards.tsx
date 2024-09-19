@@ -13,7 +13,7 @@ import { ThemedView } from "@/components/ThemedView"
 import { db } from "../../firebase"
 import { collection, doc, getDoc, updateDoc } from "firebase/firestore"
 import { useUser } from "@clerk/clerk-expo"
-import { TopNavView } from "@/components/TopNav"
+import { TopNav } from "@/components/TopNav"
 import { CountdownCircleTimer } from "react-native-countdown-circle-timer"
 
 export default function RewardScreen() {
@@ -174,7 +174,7 @@ export default function RewardScreen() {
     <>
       <>
         <ThemedView style={styles.container}>
-          <TopNavView pageName="Rewards" />
+          <TopNav pageName="Rewards" />
           <Button
             onPress={() => {
               setCameraState(true)

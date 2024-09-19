@@ -4,10 +4,11 @@ import { Image, StyleSheet } from "react-native"
 import { ThemedText } from "@/components/ThemedText"
 import { ThemedView } from "@/components/ThemedView"
 import { useEffect, useState } from "react"
-import { TopNavView } from "@/components/TopNav"
+import { TopNav } from "@/components/TopNav"
 import { useUser } from "@clerk/clerk-expo"
 import { collection, doc, getDoc, setDoc } from "firebase/firestore"
 import { db } from "../../firebase"
+import { useRouter } from "expo-router"
 
 export default function HomeScreen() {
   const [currentRewards, setCurrentRewards] = useState(0)
@@ -20,6 +21,7 @@ export default function HomeScreen() {
     false,
   ])
   const { user } = useUser()
+  const router = useRouter()
 
   useEffect(() => {
     async function getRewardsProgress() {
@@ -42,7 +44,7 @@ export default function HomeScreen() {
   return (
     <>
       <ThemedView style={styles.feed}>
-        <TopNavView />
+        <TopNav />
         <ThemedView style={styles.card}>
           <ThemedView style={styles.cardRewards}>
             <ThemedText type="title">{currentRewards}</ThemedText>
@@ -67,17 +69,32 @@ export default function HomeScreen() {
             <ThemedView style={styles.cardProgress}>
               {progress.map((value, index) => (
                 <Image
-                key={index}
-                source={
-                  value
-                  ? require("@/assets/images/check.png")
-                  : require("@/assets/images/cancel.png")
-                }
-                style={styles.progressImage}
+                  key={index}
+                  source={
+                    value
+                      ? require("@/assets/images/check.png")
+                      : require("@/assets/images/cancel.png")
+                  }
+                  style={styles.progressImage}
                 />
               ))}
             </ThemedView>
           </ThemedView>
+        </ThemedView>
+        <ThemedView style={styles.menuCard}>
+          <ThemedText
+            style={styles.menuHeader}
+            type="subtitle"
+            onPress={() => {
+              router.push("/account")
+            }}
+          >
+            Menu
+          </ThemedText>
+          <Image
+            source={require("@/assets/images/menu-banner.webp")}
+            style={styles.menuBannerImage}
+          />
         </ThemedView>
       </ThemedView>
     </>
@@ -85,6 +102,26 @@ export default function HomeScreen() {
 }
 
 const styles = StyleSheet.create({
+  menuHeader: {
+    position: "absolute",
+    zIndex: 1,
+    height: 185,
+    width: "100%",
+    paddingHorizontal: 25,
+    backgroundColor: "rgba(0,0,0,0)",
+  },
+  menuBannerImage: {
+    height: 150,
+    width: "100%",
+  },
+  menuCard: {
+    position: "relative",
+    height: 185,
+    width: "90%",
+    marginTop: 90,
+    borderColor: "#128bee",
+    borderWidth: 1,
+  },
   logo: {
     height: 75,
     width: 75,

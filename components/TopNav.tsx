@@ -3,17 +3,16 @@ import { ThemedText } from "./ThemedText"
 import { TabBarIcon } from "@/components/navigation/TabBarIcon"
 import { Link } from "expo-router"
 
-export type TopNavViewProps = ViewProps & {
+export type TopNavProps = ViewProps & {
   pageName?: string
 }
 
-export function TopNavView({
+export function TopNav({
   style,
   pageName,
   ...otherProps
-}: TopNavViewProps) {
+}: TopNavProps) {
   const backgroundColor = "#000000"
-  //   const backgroundColor = "#f4cb56"
 
   return (
     <View
@@ -31,7 +30,7 @@ export function TopNavView({
       ]}
       {...otherProps}
     >
-      <Link href="/user-info">
+      <Link href="/account">
         <TabBarIcon name={"person-circle-outline"} color={"#128bee"} />
       </Link>
       {pageName ? (

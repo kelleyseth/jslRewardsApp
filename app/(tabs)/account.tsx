@@ -5,7 +5,7 @@ import { useClerk, useUser } from "@clerk/clerk-expo"
 import { Alert, Button, StyleSheet, TextInput } from "react-native"
 import { useRouter } from "expo-router"
 import { useEffect, useState } from "react"
-import { TopNavView } from "@/components/TopNav"
+import { TopNav } from "@/components/TopNav"
 import { ThemedText } from "@/components/ThemedText"
 import { Collapsible } from "@/components/Collapsible"
 
@@ -21,8 +21,6 @@ export default function UserInfo() {
   const [passwordNewVisibility, setNewPasswordVisibility] = useState(false)
   const [passwordCurrentVisibility, setCurrentPasswordVisibility] =
     useState(false)
-  const [emailAddress, setEmailAddress] = useState("")
-  const [currentEmail, setCurrentEmail] = useState("")
 
   const passwordVisibilityEvent = (type: "current" | "new") => {
     if (type === "current") {
@@ -57,20 +55,13 @@ export default function UserInfo() {
       })
   }
 
-  const changeEmail = async () => {
-    if (!user) return
-    const userID = user.id
-    user.emailAddresses[0].emailAddress = emailAddress
-    Alert.alert("Success", "Email changed successfully")
-  }
-
   useEffect(() => {
     if (!isSignedIn) router.dismissAll()
   }, [isSignedIn])
 
   return (
     <ThemedView style={styles.layout}>
-      <TopNavView pageName="My Info" />
+      <TopNav pageName="My Info" />
         <Collapsible title="Change Password">
           <ThemedView style={styles.group}>
             <TextInput
