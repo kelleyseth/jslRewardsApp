@@ -9,13 +9,11 @@ import { useUser } from "@clerk/clerk-expo"
 import { db } from "../../firebase"
 
 export default function TimerScreen() {
-  const [timerKey, setTimerKey] = useState(0)
   const [runningTimer, setRunningTimer] = useState(false)
   const router = useRouter()
   const { user } = useUser()
 
   const completeReward = () => {
-    setTimerKey(timerKey + 1)
     setRunningTimer(false)
     router.replace("/rewards")
   }
@@ -57,7 +55,7 @@ export default function TimerScreen() {
       )}
       <CountDown
         until={120}
-        onFinish={() => alert("finished")}
+        onFinish={completeReward}
         size={24}
         running={runningTimer}
         showSeparator
