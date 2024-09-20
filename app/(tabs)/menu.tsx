@@ -20,15 +20,14 @@ export default function MenuScreen() {
               <ThemedView style={styles.services}>
                 <ThemedView style={styles.row}>
                   <ThemedText>• Jersey Shine Car Wash</ThemedText>
-                  <ThemedText>• Additional Vacuuming</ThemedText>
+                  <ThemedText>• Premium Tire Shine</ThemedText>
                 </ThemedView>
                 <ThemedView style={styles.row}>
-                  <ThemedText>• Seats Cleaned</ThemedText>
-                  <ThemedText>• Doors Cleaned</ThemedText>
+                  <ThemedText>• Additional Vacuuming</ThemedText>
+                  <ThemedText>• Seats/Doors Cleaned</ThemedText>
                 </ThemedView>
                 <ThemedView style={styles.row}>
                   <ThemedText>• Vinyl/Leather Dressing</ThemedText>
-                  <ThemedText>• Premium Tire Shine</ThemedText>
                 </ThemedView>
               </ThemedView>
             </ThemedView>
@@ -37,10 +36,10 @@ export default function MenuScreen() {
               <ThemedView style={styles.services}>
                 <ThemedView style={styles.row}>
                   <ThemedText>• Jersey Shine Car Wash</ThemedText>
-                  <ThemedText>• Spray Wax</ThemedText>
+                  <ThemedText>• Premium Tire Shine</ThemedText>
                 </ThemedView>
                 <ThemedView style={styles.row}>
-                  <ThemedText>• Premium Tire Shine</ThemedText>
+                  <ThemedText>• Spray Wax</ThemedText>
                   <ThemedText>• Rims Hand Cleaned</ThemedText>
                 </ThemedView>
                 <ThemedView style={styles.row}>
@@ -146,12 +145,6 @@ export default function MenuScreen() {
             <ThemedView style={styles.exterior}>
               <ThemedText type="title">Exterior</ThemedText>
               <ThemedView style={styles.services}>
-                <ThemedView style={styles.row}>
-                  <ThemedText>• Vacuum</ThemedText>
-                  <ThemedText>• Windows</ThemedText>
-                  <ThemedText>• Dash</ThemedText>
-                  <ThemedText>• Door Jambs</ThemedText>
-                </ThemedView>
                 <ThemedView style={styles.row}>
                   <ThemedText>• Wheels Cleaned</ThemedText>
                   <ThemedText>• Foam Bath</ThemedText>
