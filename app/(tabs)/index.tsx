@@ -20,7 +20,7 @@ export default function HomeScreen() {
     false,
     false,
   ])
-  const { user } = useUser()
+  const { user, isSignedIn } = useUser()
   const router = useRouter()
 
   useEffect(() => {
@@ -43,60 +43,64 @@ export default function HomeScreen() {
 
   return (
     <>
-      <ThemedView style={styles.feed}>
-        <TopNav />
-        <ThemedView style={styles.card}>
-          <ThemedView style={styles.cardRewards}>
-            <ThemedText type="title">{currentRewards}</ThemedText>
-            <ThemedText type="subtitle">Current</ThemedText>
-            <ThemedText type="subtitle">Rewards</ThemedText>
-          </ThemedView>
-          <ThemedView style={styles.cardStack}>
-            <ThemedView style={styles.cardInfo}>
-              <Image
-                source={require("@/assets/images/carwashgold.png")}
-                style={styles.logo}
-              />
-              <ThemedView style={styles.cardCol}>
-                <ThemedText type="subtitle">YOUR REWARD</ThemedText>
-                <ThemedText>
-                  Only {progress.filter((value) => !value).length} more washes
-                  away from a free Jersey Shine Wash or Discounted Express
-                  Service!
-                </ThemedText>
+      {isSignedIn ? (
+        <ThemedView style={styles.feed}>
+          <TopNav />
+          <ThemedView style={styles.card}>
+            <ThemedView style={styles.cardRewards}>
+              <ThemedText type="title">{currentRewards}</ThemedText>
+              <ThemedText type="subtitle">Current</ThemedText>
+              <ThemedText type="subtitle">Rewards</ThemedText>
+            </ThemedView>
+            <ThemedView style={styles.cardStack}>
+              <ThemedView style={styles.cardInfo}>
+                <Image
+                  source={require("@/assets/images/carwashgold.png")}
+                  style={styles.logo}
+                />
+                <ThemedView style={styles.cardCol}>
+                  <ThemedText type="subtitle">YOUR REWARD</ThemedText>
+                  <ThemedText>
+                    Only {progress.filter((value) => !value).length} more washes
+                    away from a free Jersey Shine Wash or Discounted Express
+                    Service!
+                  </ThemedText>
+                </ThemedView>
+              </ThemedView>
+              <ThemedView style={styles.cardProgress}>
+                {progress.map((value, index) => (
+                  <Image
+                    key={index}
+                    source={
+                      value
+                        ? require("@/assets/images/check.png")
+                        : require("@/assets/images/cancel.png")
+                    }
+                    style={styles.progressImage}
+                  />
+                ))}
               </ThemedView>
             </ThemedView>
-            <ThemedView style={styles.cardProgress}>
-              {progress.map((value, index) => (
-                <Image
-                  key={index}
-                  source={
-                    value
-                      ? require("@/assets/images/check.png")
-                      : require("@/assets/images/cancel.png")
-                  }
-                  style={styles.progressImage}
-                />
-              ))}
-            </ThemedView>
+          </ThemedView>
+          <ThemedView style={styles.menuCard}>
+            <ThemedText
+              style={styles.menuHeader}
+              type="subtitle"
+              onPress={() => {
+                router.push("/account")
+              }}
+            >
+              Menu
+            </ThemedText>
+            <Image
+              source={require("@/assets/images/menu-banner.webp")}
+              style={styles.menuBannerImage}
+            />
           </ThemedView>
         </ThemedView>
-        <ThemedView style={styles.menuCard}>
-          <ThemedText
-            style={styles.menuHeader}
-            type="subtitle"
-            onPress={() => {
-              router.push("/account")
-            }}
-          >
-            Menu
-          </ThemedText>
-          <Image
-            source={require("@/assets/images/menu-banner.webp")}
-            style={styles.menuBannerImage}
-          />
-        </ThemedView>
-      </ThemedView>
+      ) : (
+        router.replace("/(home)")
+      )}
     </>
   )
 }

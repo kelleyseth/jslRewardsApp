@@ -1,16 +1,10 @@
-import {
-  DarkTheme,
-  ThemeProvider,
-} from "@react-navigation/native"
+import { DarkTheme, ThemeProvider } from "@react-navigation/native"
 import { useFonts } from "expo-font"
 import { Slot } from "expo-router"
 import * as SplashScreen from "expo-splash-screen"
 import { useEffect } from "react"
 import "react-native-reanimated"
-import {
-  ClerkLoaded,
-  ClerkProvider,
-} from "@clerk/clerk-expo"
+import { ClerkLoaded, ClerkProvider } from "@clerk/clerk-expo"
 import * as SecureStore from "expo-secure-store"
 import { StatusBar } from "react-native"
 
@@ -56,9 +50,10 @@ export default function RootLayout() {
   }
 
   useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync()
-    }
+    if (loaded)
+      setTimeout(() => {
+        SplashScreen.hideAsync()
+      }, 3000)
   }, [loaded])
 
   if (!loaded) {
@@ -70,7 +65,7 @@ export default function RootLayout() {
       <ClerkLoaded>
         <StatusBar barStyle="light-content" />
         <ThemeProvider value={DarkTheme}>
-            <Slot />
+          <Slot />
         </ThemeProvider>
       </ClerkLoaded>
     </ClerkProvider>

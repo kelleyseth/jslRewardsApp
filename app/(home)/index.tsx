@@ -9,9 +9,9 @@ export default function HomePage() {
     return (
       <ThemedView style={StyleSheet.absoluteFill}>
         <SignedIn>
-      <Redirect href={"/(tabs)"} />
-      {/* <Stack.Screen name="+not-found" /> */}
-      </SignedIn>
+          <Redirect href={"/(tabs)"} />
+          {/* <Stack.Screen name="+not-found" /> */}
+        </SignedIn>
         <SignedOut>
           <ThemedView style={styles.div}>
             <Image
