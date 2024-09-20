@@ -38,6 +38,18 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="menu"
+        options={{
+          title: "Menu",
+          tabBarIcon: ({ focused }) => (
+            <TabBarIcon
+              name={focused ? "car-sport" : "car-sport-outline"}
+              color={"#128bee"}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
         name="account"
         options={{
           href: null,

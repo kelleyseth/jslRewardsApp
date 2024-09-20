@@ -62,7 +62,7 @@ export default function UserInfo() {
   return (
     <ThemedView style={styles.layout}>
       <TopNav pageName="My Info" />
-        <Collapsible title="Change Password">
+        <Collapsible title="Change Password" open ={false}>
           <ThemedView style={styles.group}>
             <TextInput
               autoCapitalize="none"

@@ -6,8 +6,8 @@ import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import { Colors } from '@/constants/Colors';
 
-export function Collapsible({ children, title }: PropsWithChildren & { title: string }) {
-  const [isOpen, setIsOpen] = useState(false);
+export function Collapsible({ children, title, open }: PropsWithChildren & { title: string, open: boolean }) {
+  const [isOpen, setIsOpen] = useState(open);
   const theme = useColorScheme() ?? 'light';
 
   return (
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     gap: 6,
     borderBottomColor:'#128bee',
     borderBottomWidth: 1,
-    minWidth: '90%',
+    minWidth: '100%',
     paddingVertical: 12,
   },
   content: {

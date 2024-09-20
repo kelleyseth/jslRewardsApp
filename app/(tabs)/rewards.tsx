@@ -22,7 +22,7 @@ export default function RewardScreen() {
     false,
     false,
   ])
-  const maxReward = currentRewards >= 3 ? 3 : currentRewards
+  const maxDisplayedRewards = currentRewards >= 3 ? 3 : currentRewards
 
   useEffect(() => {
     async function getRewardsProgress() {
@@ -96,7 +96,7 @@ export default function RewardScreen() {
             <ThemedText type="subtitle">No Rewards</ThemedText>
           )}
         </ThemedView>
-        {Array.from({ length: maxReward }, (_, i) => (
+        {Array.from({ length: maxDisplayedRewards }, (_, i) => (
           <ThemedView key={i} style={{ marginTop: 10, marginBottom: 10 }}>
             <ThemedView style={styles.myRewardBG1}>
               <ThemedView style={styles.myRewardBG2}>
@@ -112,7 +112,7 @@ export default function RewardScreen() {
           </ThemedView>
         ))}
         <ThemedText type="small">
-          Once reward is redeemed you have a 5 minute timer to present your
+          Once reward is redeemed you have a two minute timer to present your
           reward to the cashier. Cannot be combined with any other offer.
         </ThemedText>
       </ThemedView>

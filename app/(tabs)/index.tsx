@@ -48,6 +48,12 @@ export default function HomeScreen() {
           <TopNav />
           <ThemedView style={styles.card}>
             <ThemedView style={styles.cardRewards}>
+              <ThemedText
+                style={styles.rewards}
+                onPress={() => {
+                  router.push("/rewards")
+                }}
+              />
               <ThemedText type="title">{currentRewards}</ThemedText>
               <ThemedText type="subtitle">Current</ThemedText>
               <ThemedText type="subtitle">Rewards</ThemedText>
@@ -87,7 +93,7 @@ export default function HomeScreen() {
               style={styles.menuHeader}
               type="subtitle"
               onPress={() => {
-                router.push("/account")
+                router.push("/menu")
               }}
             >
               Menu
@@ -106,6 +112,12 @@ export default function HomeScreen() {
 }
 
 const styles = StyleSheet.create({
+  rewards: {
+    zIndex: 1,
+    height: 200,
+    position: "absolute",
+    width: "100%",
+  },
   menuHeader: {
     position: "absolute",
     zIndex: 1,
