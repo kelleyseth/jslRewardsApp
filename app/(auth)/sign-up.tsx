@@ -27,12 +27,6 @@ export default function SignUpScreen() {
   }
 
   const onSignUpPress = async () => {
-    if (password.length < 8) {
-      isValidPassword(false)
-      return
-    } else {
-      isValidPassword(true)
-    }
     if (!isLoaded) {
       return
     }
@@ -74,6 +68,7 @@ export default function SignUpScreen() {
       // See https://clerk.com/docs/custom-flows/error-handling
       // for more info on error handling
       console.error(JSON.stringify(err, null, 2))
+      Alert.alert("Error" , err.errors[0].message)
     }
   }
 
@@ -113,11 +108,6 @@ export default function SignUpScreen() {
             </ThemedText>
           </ThemedView>
           <Button title="Sign Up" onPress={onSignUpPress} />
-          {!validPassword ? (
-            <ThemedText>Password must be at least 8 characters</ThemedText>
-          ) : (
-            <ThemedText></ThemedText>
-          )}
         </>
       )}
       {pendingVerification && (
