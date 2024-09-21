@@ -22,9 +22,15 @@ This is a rewards app that is built with react-native, using expo to create the 
 and uses React, Typescript, Javascript.
 
 This also uses Clerk to keep track of user accounts and firebase to keep track of user details towards rewards.
+Users can update once logged in and reset upon sign in if forgotten.
 
-This app uses the phone camera to scan a QR code to log rewards and update any values pertaining to it.
+This app uses the phone camera to scan a QR code to log rewards and update any values pertaining to it in the database.
+A successful scan adds progress and notifies the user.
+A invalid scan denies progress and notifies the user.
 
 Rewards can then be redeemed if there are any for the given user.
+Redeeming a reward launchs a timer to verify a reward has been redeemed.
 
-Location is also used to determine if the user is in the correct geolocation to log a QR code scan.
+There is an option/button to launch the location in the phones native map application to direct to the location.
+
+Menu items are displayed to the user for any/all services given.
